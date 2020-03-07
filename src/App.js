@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { StoneApi } from 'lib/StoneApi';
 
 function App() {
+
   return (
     <div className="App">
       <header className="App-header">
