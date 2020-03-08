@@ -13,10 +13,20 @@ export const StoneApi = {
   },
 
   Auth: {
-    
-    async login(username, password){
+    async login(email, password){
+      return await insecurePost('/api/auth/login', null, {email, password})
+    }
+  },
 
-      return await insecurePost('/api/auth/login', null, {email: username, password})
+  User: {
+    async getUser(email){  
+      const students = await insecureGet('/api/student', null)
+      const faculties = await insecureGet('/api/faculty', null)
+
+      const findS = students ? students.filter(student=>student.email===email) : null
+      const findF = faculties ? faculties.filter(faculty=>faculty.email===email) : null
+      
+      return findS ? findS : findF || null;
     }
   }
 };
