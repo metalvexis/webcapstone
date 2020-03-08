@@ -1,7 +1,8 @@
 import React from 'react';
 
 import AuthContext from 'context/Auth/AuthContext.jsx';
-import TestContext from 'context/Auth/TestContext.jsx';
+
+import { Container, Col, Row } from 'reactstrap';
 
 import './App.css';
 
@@ -9,13 +10,13 @@ import AppRouter from './AppRouter.js';
 
 function App() {
   return (
-    <TestContext>
-      <AuthContext>
+    <AuthContext>
+      <Container fluid={true}>
         <div className="App">
           <AppRouter />
         </div>
-      </AuthContext>
-    </TestContext>
+      </Container>
+    </AuthContext>
   );
 }
 

@@ -1,19 +1,22 @@
 import React from 'react';
 
-import { compose } from 'redux';
+import FormLogin from 'components/FormLogin/FormLogin.jsx';
 
-import { withAuthContext } from 'context/Auth/AuthContext.jsx';
-import { withTestContext } from 'context/Auth/TestContext.jsx';
+import { Col, Row } from 'reactstrap';
 
 import './Login.scss';
 
 function Login(props) {  
   return (
-    <div className="HomeScreen">
+    <div className="LoginScreen">
+      <Col>
+        <Row>
+        <FormLogin/>
+        </Row>
+      </Col>
+      
     </div>
   );
 }
 
-const enhance = compose(withTestContext, withAuthContext);
-
-export default enhance(Login)
+export default Login;

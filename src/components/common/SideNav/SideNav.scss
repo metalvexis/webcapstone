@@ -1,0 +1,32 @@
+#SideNav {
+  position: fixed;
+  height: 100vh;
+  background: lightgrey;
+  left: 0px;
+  border: 1px solid lightgrey;
+  min-width: 250px;
+
+  .SideNav--User {
+    background: white;
+    height: 100px;
+
+    .SideNav--UserInfo {
+      margin-top: 20px;
+      width: 100%;
+      padding: 0px 10px;
+    }
+  }
+
+  .SideNav--List {
+    width: 100%;
+    .SideNav--ListItem {
+      border-radius: 0px;
+    }
+  }
+
+  #Button--Logout {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+  }
+}

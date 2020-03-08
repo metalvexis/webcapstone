@@ -14,16 +14,17 @@ class AuthProvider extends React.Component {
         roles: null,
         isLoggedIn: false
       };
-      this.loadUser = this.loadUser.bind(this);
     }
     
     login = async (email, password) => {
       const { isValidLogin, user, userType, roles } = await StoneApi.Auth.login(email, password);
       localStorage.removeItem('email');
       
-      if( isValidLogin ){
-        localStorage.setItem('email', email);
+      if( !isValidLogin ){
+        return false;
       }
+
+      localStorage.setItem('email', email);
     
       this.setState({ user, roles, userType, isLoggedIn: true });
 
@@ -33,7 +34,16 @@ class AuthProvider extends React.Component {
     loadUser = async() => {
       const email = localStorage.getItem('email');
       if( email ){
-        return StoneApi.User.getUser(email);
+        let user = await StoneApi.User.getUser(email);
+
+        if(!user[0]){
+          return this.setState({ user: null, isLoggedIn: false });  
+        }
+
+        user = user[0];
+
+        this.setState({ user, isLoggedIn: true });
+        return user
       }
       return null;
     }

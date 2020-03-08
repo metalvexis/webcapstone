@@ -17,7 +17,6 @@ function AppRouter() {
         <Route path="/home">
           <React.Fragment>
             <Home />
-            <Sample />
           </React.Fragment>
         </Route>
 
