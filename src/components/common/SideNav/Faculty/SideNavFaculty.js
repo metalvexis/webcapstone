@@ -14,7 +14,7 @@ function SideNavFaculty() {
         <Link to="/home/schedule">Schedule</Link>
       </ListGroupItem>
       <ListGroupItem className="SideNav--ListItem">
-        <Link to="/home/appointment">Appointments</Link>
+        <Link to="/home/appointment">Appointment</Link>
       </ListGroupItem>
     </ListGroup>
   );

@@ -19,6 +19,14 @@ export const StoneApi = {
   },
 
   User: {
+    async getFaculties(){  
+      return await insecureGet('/api/faculty', null)
+    },
+
+    async getStudents(){  
+      return await insecureGet('/api/student', null)
+    },
+
     async getUser(email){  
       const students = await insecureGet('/api/student', null)
       const faculties = await insecureGet('/api/faculty', null)
