@@ -15,37 +15,21 @@ import SideNavFaculty from './Faculty/SideNavFaculty.js'
 import './SideNav.scss';
 
 class SideNav extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {};
-    
-  }
-
-  async componentDidMount() {
-    let user = await this.props.AuthContext.loadUser();
-
-    if(!user){
-      this.props.history.push('login')
-    }
-    
-  }
-
   logout = async() => {
+    this.props.AuthContext.logout()
     this.props.history.push('/login')
   }
 
   render() {
-    let user = this.props.AuthContext.user || null;
+    const userType = this.props.AuthContext.userType || null
+    let user = this.props.AuthContext.user || null
 
     return (
       <Col id="SideNav" sm="2">
       
         <Row className="SideNav--User">
           <div className="SideNav--UserInfo text-center">
-            {
-              user &&
-
+            { user &&
               <h5>
                 { user.fName + ' ' +  user.lName }
               </h5>
@@ -53,7 +37,12 @@ class SideNav extends React.Component {
           </div>
         </Row>
         <Row>
-          <SideNavFaculty />
+          { userType === "faculty" &&
+            <SideNavFaculty />
+          }
+          { userType === "student" &&
+            <SideNavStudent />
+          }
         </Row>
         <Button color="danger" outline block id="Button--Logout" onClick={this.logout}>Logout</Button>
       </Col>

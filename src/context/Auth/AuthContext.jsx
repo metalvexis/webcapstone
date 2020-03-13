@@ -5,67 +5,69 @@ import { StoneApi } from 'lib/StoneApi.js';
 export const AuthContext = React.createContext('Auth');
 
 class AuthProvider extends React.Component {
-    constructor(props) {
-      super(props);
-      
-      this.state = {
-        user: null,
-        userType: null,
-        roles: null,
-        isLoggedIn: false
-      };
-    }
+  constructor(props) {
+    super(props);
     
-    login = async (email, password) => {
-      const { isValidLogin, user, userType, roles } = await StoneApi.Auth.login(email, password);
-      localStorage.removeItem('email');
-      
-      if( !isValidLogin ){
-        return false;
-      }
+    this.state = {
+      user: null,
+      userType: null,
+      isLoggedIn: false
+    };
+  }
+  
+  login = async (email, password) => {
+    const { isValidLogin, user, userType } = await StoneApi.Auth.login(email, password);
 
-      localStorage.setItem('email', email);
+    console.log({ isValidLogin, user, userType })
+    localStorage.removeItem('email');
     
-      this.setState({ user, roles, userType, isLoggedIn: true });
-
-      return user;
+    if( !isValidLogin ){
+      return false;
     }
 
-    loadUser = async() => {
-      const email = localStorage.getItem('email');
-      if( email ){
-        let user = await StoneApi.User.getUser(email);
+    localStorage.setItem('email', email);
+  
+    this.setState({ user, userType, isLoggedIn: true });
 
-        if(!user[0]){
-          return this.setState({ user: null, isLoggedIn: false });  
-        }
+    return user;
+  }
 
-        user = user[0];
+  loadUser = async() => {
+    const email = localStorage.getItem('email');
+    console.log({loadUser: email})
+    if( email ){
+      let { user, userType } = await StoneApi.User.getUser(email);
 
-        this.setState({ user, isLoggedIn: true });
-        return user
+      if(!user[0]){
+        return this.setState({ user: null, isLoggedIn: false });  
       }
-      return null;
-    }
 
-    logout = async() => {
-      localStorage.removeItem('email');
-      this.setState({ user: null, userType: null, roles: null, isLoggedIn: false });
-    }
+      user = user[0];
 
-    render() {
-      const value = { 
-        ...this.state, 
-        loadUser: this.loadUser,
-        login: this.login, 
-        logout: this.logout
-      }
-      return (
-        <AuthContext.Provider value={ value }>
-          {this.props.children}
-        </AuthContext.Provider>
-      );
+      this.setState({ user, userType, isLoggedIn: true });
+      return user
     }
+    return null;
+  }
+
+  logout = async() => {
+    localStorage.removeItem('email');
+    this.setState({ user: null, userType: null, roles: null, isLoggedIn: false });
+  }
+
+  render() {
+    const value = { 
+      ...this.state, 
+      loadUser: this.loadUser,
+      login: this.login, 
+      logout: this.logout
+    }
+    return (
+      <AuthContext.Provider value={ value }>
+        {this.props.children}
+      </AuthContext.Provider>
+    );
+  }
 }
 export default AuthProvider;
 

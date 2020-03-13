@@ -8,13 +8,10 @@ function SideNavStudent() {
   return (
     <ListGroup className="SideNav--List">
       <ListGroupItem className="SideNav--ListItem">
-        <Link to="/home/dashboard">Dashboard</Link>
+        <Link to="/home/dashboard">Project</Link>
       </ListGroupItem>
       <ListGroupItem className="SideNav--ListItem">
-        <Link to="/home/dashboard">Advisor</Link>
-      </ListGroupItem>
-      <ListGroupItem className="SideNav--ListItem">
-        <Link to="/home/dashboard">Consult</Link>
+        <Link to="/home/consult">Consult</Link>
       </ListGroupItem>
     </ListGroup>
   );

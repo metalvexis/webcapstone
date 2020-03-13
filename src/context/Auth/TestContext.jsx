@@ -5,20 +5,20 @@ import { StoneApi } from 'lib/StoneApi.js';
 export const TestContext = React.createContext('Test');
 
 class TestProvider extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        test: "TEST",
-        field: "value"
-      };
-    }
-    render() {
-      return (
-        <TestContext.Provider value={ this.state }>
-          {this.props.children}
-        </TestContext.Provider>
-      );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      test: "TEST",
+      field: "value"
+    };
+  }
+  render() {
+    return (
+      <TestContext.Provider value={ this.state }>
+        {this.props.children}
+      </TestContext.Provider>
+    );
+  }
 }
 export default TestProvider;
 

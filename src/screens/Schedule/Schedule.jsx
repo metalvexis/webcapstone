@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import { withAuthContext } from 'context/Auth/AuthContext.jsx';
 
-import SideNav from 'components/common/SideNav/SideNav.jsx';
-
 
 import { Container, Col, Row } from 'reactstrap';
 
