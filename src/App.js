@@ -4,6 +4,8 @@ import AuthContext from 'context/Auth/AuthContext.jsx';
 
 import { Container, Col, Row } from 'reactstrap';
 
+import './import.scss';
+
 import './App.css';
 
 import AppRouter from './AppRouter.js';
