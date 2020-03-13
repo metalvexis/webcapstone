@@ -8,7 +8,7 @@ function SideNavFaculty() {
   return (
     <ListGroup className="SideNav--List">
       <ListGroupItem className="SideNav--ListItem">
-        <Link to="/home/projects">Projects</Link>
+        <Link to="/home/sections">Sections</Link>
       </ListGroupItem>
       <ListGroupItem className="SideNav--ListItem">
         <Link to="/home/schedule">Schedule</Link>

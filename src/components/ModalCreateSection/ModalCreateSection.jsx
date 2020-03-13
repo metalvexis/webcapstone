@@ -66,6 +66,8 @@ class ModalCreateSection extends React.Component {
     }})
 
     const newSection = await StoneApi.Section.createSection(name, FacultyId, currentPeriodId)
+
+    setTimeout(()=>window.location.reload(), 200)
   }
 
   render() {

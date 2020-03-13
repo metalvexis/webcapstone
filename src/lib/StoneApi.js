@@ -14,12 +14,12 @@ export const StoneApi = {
 
   Auth: {
     async login(email, password){
-      return await insecurePost('/api/auth/login', null, {email, password})
+      return insecurePost('/api/auth/login', null, {email, password})
     }
   },
 
   User: {
-    async getFaculties(){  
+    async getFaculties(){
       return await insecureGet('/api/faculty', null)
     },
 
@@ -27,7 +27,7 @@ export const StoneApi = {
       return await insecureGet('/api/student', null)
     },
 
-    async getUser(email){  
+    async getUser(email){
       const students = await insecureGet('/api/student', null)
       const faculties = await insecureGet('/api/faculty', null)
 
@@ -53,7 +53,11 @@ export const StoneApi = {
   Section: {
     async createSection (name, FacultyId, PeriodId){
       return await insecurePost('/api/section/createSection', null, {name, FacultyId, PeriodId})
-    }
+    },
+
+    async fetchAllSection(){
+      return await insecureGet('/api/section/fetch', null)
+    },
   },
 
   Period: {

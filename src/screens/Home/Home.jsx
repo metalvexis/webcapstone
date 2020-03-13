@@ -10,6 +10,8 @@ import Projects from 'screens/Projects/Projects.jsx';
 
 import Schedule from 'screens/Schedule/Schedule.jsx';
 
+import Sections from 'screens/Sections/Sections.jsx';
+
 import { Container, Col, Row } from 'reactstrap';
 
 import './Home.scss';
@@ -21,8 +23,8 @@ function Home(props) {
       
       <Col sm={{ size:10, offset: 2}} id="HomeScreen--View">
         <Switch>
-          <Route exact path="/home/projects">
-            <Projects />
+          <Route exact path="/home/sections">
+            <Sections />
           </Route>
 
           <Route exact path="/home/schedule">

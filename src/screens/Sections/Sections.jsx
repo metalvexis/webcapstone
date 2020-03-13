@@ -10,19 +10,19 @@ import ModalCreateSection from 'components/ModalCreateSection/ModalCreateSection
 
 import ListSection from 'components/ListSection/ListSection.jsx'
 
-import './Projects.scss';
+import './Sections.scss';
 
-function Projects(props) {
+function Sections(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => setIsOpen(!isOpen);
 
   return (
-    <div className="ProjectsScreen">
+    <div className="SectionsScreen">
       <Col>
         <ModalCreateSection isOpen={isOpen} toggle={toggleModal} />
         <Row>
-          <h2>Projects</h2>
+          <h2>Sections</h2>
         </Row>
         <Row>
           <Button onClick={toggleModal}>Create Section</Button>
@@ -36,4 +36,4 @@ function Projects(props) {
   );
 }
 
-export default withAuthContext(Projects);
+export default withAuthContext(Sections);
