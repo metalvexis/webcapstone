@@ -6,26 +6,26 @@ import { withAuthContext } from 'context/Auth/AuthContext.jsx';
 
 import { Container, Col, Row, Button } from 'reactstrap';
 
-import ModalCreateSection from 'components/ModalCreateSection/ModalCreateSection.jsx'
+import ModalCreateProject from 'components/ModalCreateProject/ModalCreateProject.jsx'
 
 import ListSection from 'components/ListSection/ListSection.jsx'
 
-import './Projects.scss';
+import './Project.scss';
 
-function Projects(props) {
+function Project(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => setIsOpen(!isOpen);
 
   return (
-    <div className="ProjectsScreen">
+    <div className="ProjectScreen">
       <Col>
-        <ModalCreateSection isOpen={isOpen} toggle={toggleModal} />
+        <ModalCreateProject isOpen={isOpen} toggle={toggleModal} />
         <Row>
-          <h2>Projects</h2>
+          <h2>Project</h2>
         </Row>
         <Row>
-          <Button onClick={toggleModal}>Create Section</Button>
+          <Button onClick={toggleModal}>Create Project</Button>
         </Row>
 
         <Row>
@@ -38,4 +38,4 @@ function Projects(props) {
   );
 }
 
-export default withAuthContext(Projects);
+export default withAuthContext(Project);

@@ -30,9 +30,14 @@ class SideNav extends React.Component {
         <Row className="SideNav--User">
           <div className="SideNav--UserInfo text-center">
             { user &&
-              <h5>
-                { user.fName + ' ' +  user.lName }
-              </h5>
+              <React.Fragment>
+                <h5>
+                  { user.fName + ' ' +  user.lName }
+                </h5>
+                <h6>
+                  { userType }
+                </h6>
+              </React.Fragment>
             }
           </div>
         </Row>

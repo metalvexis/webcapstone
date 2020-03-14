@@ -26,21 +26,17 @@ class ModalCreateSection extends React.Component {
   async componentDidMount() {
     const localMoment = moment
     const currentPeriod = await StoneApi.Period.getCurrentPeriod()
-    
-    localMoment().year(currentPeriod.schoolYear)
-    const year1 = localMoment().year()
-    const year2 = localMoment().add(1,'y').year()
+    const year1 = localMoment().year(currentPeriod.schoolYear).format('YYYY')
+    const year2 = localMoment().year(currentPeriod.schoolYear).add(1,'y').format('YYYY')
     let sem = currentPeriod.semester;
 
     if(sem!=="summer") sem = sem === "1" ? "1st" : "2nd";
-    console.log({currentPeriod})
+
     this.setState({
       currentPeriodId: currentPeriod.id,
       selectedPeriod: `S/Y ${year1}-${year2} ${sem} Semester`
     })
-    console.log({currentPeriod})
   }
-  
 
   handleInput = (e) => {
     const name = e.target.name
@@ -65,7 +61,7 @@ class ModalCreateSection extends React.Component {
       name, FacultyId, PeriodId: currentPeriodId
     }})
 
-    const newSection = await StoneApi.Section.createSection(name, FacultyId, currentPeriodId)
+    const newSection = await StoneApi.Section.createSection(FacultyId, currentPeriodId, name)
 
     setTimeout(()=>window.location.reload(), 200)
   }

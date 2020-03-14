@@ -1,18 +1,10 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-
 import { withAuthContext } from 'context/Auth/AuthContext.jsx';
 
 import SideNav from 'components/common/SideNav/SideNav.jsx';
 
-import Projects from 'screens/Projects/Projects.jsx';
-
-import Schedule from 'screens/Schedule/Schedule.jsx';
-
-import Sections from 'screens/Sections/Sections.jsx';
-
-import { Container, Col, Row } from 'reactstrap';
+import MainView from 'components/common/MainView/MainView.js';
 
 import './Home.scss';
 
@@ -20,8 +12,9 @@ function Home(props) {
   return (
     <div className="HomeScreen">
       <SideNav/>
-      
-      <Col sm={{ size:10, offset: 2}} id="HomeScreen--View">
+
+      <MainView/>
+      {/* <Col sm={{ size:10, offset: 2}} id="HomeScreen--View">
         <Switch>
           <Route exact path="/home/sections">
             <Sections />
@@ -31,10 +24,12 @@ function Home(props) {
             <Schedule />
           </Route>
           
-          <Route exact path="/home/appointment">
+          <Route exact path="/home/project">
+            <Project />
           </Route>
+          
         </Switch>
-      </Col>
+      </Col> */}
     </div>
   );
 }

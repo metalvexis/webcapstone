@@ -4,7 +4,7 @@ import { compose } from 'redux';
 
 import { withAuthContext } from 'context/Auth/AuthContext.jsx';
 
-import { Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Col, Button, ButtonGroup, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import { StoneApi } from 'lib/StoneApi.js';
 
@@ -24,8 +24,9 @@ class ModalCreateSchedule extends React.Component {
         "Defense"
       ],
       selectedEventType: "Consultation",
-      dateTime: new Date(),
-      room: 'JH24'
+      dateTime: null,
+      venue: 'JH24',
+      recurring: 'once',
     };
   }
 
@@ -52,13 +53,29 @@ class ModalCreateSchedule extends React.Component {
     this.setState({ dateTime })
   }
 
+  setRecurringDate = (recurring) => {
+    this.setState({ recurring })
+    
+  }
+
+  createSchedule = async () => {
+    // FacultyId, dateTime, venue
+    let FacultyId = this.props.AuthContext.user.id
+    const { dateTime, venue } = this.state
+    const response = await StoneApi.Schedule.createSchedule(FacultyId, dateTime, venue)
+
+    console.log({createdSched: response})
+
+    this.props.toggle()
+  }
+
   renderEventTypes = () => {
-    return this.state.eventTypes.map(event=><option>{event}</option>)
+    return this.state.eventTypes.map(event=><option key={event}>{event}</option>)
   }
 
   render() {
     return (
-      <Modal isOpen={this.props.isOpen} backdrop="static">
+      <Modal isOpen={this.props.isOpen} backdrop="static" id="ModalCreateSchedule">
         <ModalHeader toggle={this.props.toggle}>New Event</ModalHeader>
         <ModalBody>
           <Form id="FormCreateShedule">
@@ -74,6 +91,7 @@ class ModalCreateSchedule extends React.Component {
 
             <FormGroup row>
               <Label for="name" sm="4">Date and Time</Label>
+              <div className="date-picker">
               <DatePicker 
                   selected={this.state.dateTime}
                   onChange={date => this.setDateTime(date)}
@@ -82,16 +100,37 @@ class ModalCreateSchedule extends React.Component {
                   timeIntervals={60}
                   timeCaption="Hour"
                   dateFormat="yyyy MM dd h:mm aa"
-                  className="form-control"
+                  className="form-control "
                 />
+              </div>
               
             </FormGroup>
 
+            <FormGroup row>
+              <Label for="venue" sm="4">Venue</Label>
+              <Col sm="6">
+                <Input type="text" name="venue" id="venue" value={this.state.venue} onChange={this.handleInput}/>
+              </Col>
+            </FormGroup>
+
+
+            {/* <FormGroup row>
+              <Label for="venue" sm="4">Recurring</Label>
+              <Col sm="6">
+                <ButtonGroup size="sm">
+                  <Button onClick={()=>{this.setRecurringDate('once')}}>Once</Button>
+                  <Button onClick={()=>{this.setRecurringDate('weekdays')}}>Weekdays</Button>
+                  <Button onClick={()=>{this.setRecurringDate('daily')}}>Weekly</Button>
+                  <Button onClick={()=>{this.setRecurringDate('monthly')}}>Monthly</Button>
+                </ButtonGroup>
+              </Col>
+            </FormGroup> */}
+        
             
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.createSection}>Save Event</Button>
+          <Button color="primary" onClick={this.createSchedule}>Save Event</Button>
         </ModalFooter>
       </Modal>
     );

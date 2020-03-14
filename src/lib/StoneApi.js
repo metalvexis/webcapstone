@@ -15,16 +15,6 @@ export const StoneApi = {
   Auth: {
     async login(email, password){
       return insecurePost('/api/auth/login', null, {email, password})
-    }
-  },
-
-  User: {
-    async getFaculties(){
-      return await insecureGet('/api/faculty', null)
-    },
-
-    async getStudents(){  
-      return await insecureGet('/api/student', null)
     },
 
     async getUser(email){
@@ -47,11 +37,33 @@ export const StoneApi = {
       }
       
       return { user: null , userType: null };
+    },
+  },
+
+  Student: {
+    async getStudents(){  
+      return await insecureGet('/api/student', null)
+    }
+    
+  },
+
+  Faculty: {
+    async getFaculties(){
+      return await insecureGet('/api/faculty', null)
+    },
+
+    async getSection(){  
+      return await insecureGet('/api/faculty/:id/section', null)
+    },
+
+    getConsultationSchedule(id){  
+      console.log({getSched: id})
+      return insecureGet(`/api/faculty/${id}/schedule/consultation`, null) // TODO: Create Endpoint
     }
   },
 
   Section: {
-    async createSection (name, FacultyId, PeriodId){
+    async createSection (FacultyId, PeriodId, name){
       return await insecurePost('/api/section/createSection', null, {name, FacultyId, PeriodId})
     },
 
@@ -74,6 +86,12 @@ export const StoneApi = {
     async createPeriod (schoolYear, semester){
       return await insecurePost('/api/period/createPeriod', null, {schoolYear, semester})
     }
+  },
+
+  Schedule: {
+    async createSchedule (FacultyId, dateTime, venue){''
+      return await insecurePost('/api/consultationschedule/createSchedule', null, {FacultyId, dateTime, venue, recurring: "once"})
+    },
   }
 };
 

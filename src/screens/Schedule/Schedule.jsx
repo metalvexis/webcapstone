@@ -4,20 +4,15 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import { withAuthContext } from 'context/Auth/AuthContext.jsx';
 
-import { Calendar, momentLocalizer } from 'react-big-calendar'
-
-import moment from 'moment'
-
 import { Button, Col, Row } from 'reactstrap';
 
 import ModalCreateSchedule from 'components/ModalCreateSchedule/ModalCreateSchedule.jsx'
 
+import EventCalendar from 'components/EventCalendar/EventCalendar.jsx'
+
 import './Schedule.scss';
 
 function Schedule(props) {  
-
-  const localizer = momentLocalizer(moment)
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => setIsOpen(!isOpen);
@@ -33,12 +28,7 @@ function Schedule(props) {
           <Button onClick={toggleModal}>Create Event</Button>
         </Row>
         <Row>
-          <Calendar
-            localizer={localizer} 
-            events={[]} 
-            startAccessor="start"
-            endAccessor="end"
-            style={{ height: 500 }}/>
+          <EventCalendar />
         </Row>
       </Col>
     </div>

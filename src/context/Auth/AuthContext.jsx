@@ -36,7 +36,7 @@ class AuthProvider extends React.Component {
     const email = localStorage.getItem('email');
     console.log({loadUser: email})
     if( email ){
-      let { user, userType } = await StoneApi.User.getUser(email);
+      let { user, userType } = await StoneApi.Auth.getUser(email);
 
       if(!user[0]){
         return this.setState({ user: null, isLoggedIn: false });  
