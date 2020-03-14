@@ -17,10 +17,10 @@ class ModalCreateProject extends React.Component {
     super(props);
     
     this.state = {
+      title: "",
+      abstract: "",
+      sectionId: ""
     };
-  }
-
-  async componentDidMount() {
   }
 
   handleInput = (e) => {
@@ -32,7 +32,16 @@ class ModalCreateProject extends React.Component {
     update[name] = val
 
     this.setState(update)
+    
+  }
 
+  createProject = async () => {
+    const { title, abstract } = this.state
+    const StudentId = this.props.AuthContext.user.id
+    const response = await StoneApi.Project.createProject([StudentId], title, abstract)
+
+    console.log({createProjectResponse: response})
+    this.props.toggle()
   }
 
   render() {
@@ -42,13 +51,18 @@ class ModalCreateProject extends React.Component {
         <ModalBody>
           <Form id="FormCreateProject">
             <FormGroup>
-              <Label for="name">Title</Label>
-              <Input type="text" name="name" id="name" value={this.state.name} onChange={this.handleInput}/>
+              <Label for="title">Title</Label>
+              <Input type="text" name="title" id="title" value={this.state.title} onChange={this.handleInput}/>
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="abstract">Abstract</Label>
+              <Input type="textarea" name="abstract" id="abstract" rows={4} value={this.state.abstract} onChange={this.handleInput}/>
             </FormGroup>
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.createSection}>Save Project</Button>
+          <Button color="primary" onClick={this.createProject}>Save Project</Button>
         </ModalFooter>
       </Modal>
     );

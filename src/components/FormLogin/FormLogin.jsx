@@ -30,9 +30,9 @@ class FormLogin extends React.Component {
       if(!isCorrect) {
         console.log('Invalid Credentials, Try Again.')
         alert('Invalid Credentials, Try Again.')
+      }else{
+        this.props.history.push('/home');
       }
-
-      this.props.history.push('/home');
     }
 
     logout = async() => {

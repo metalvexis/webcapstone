@@ -43,8 +43,15 @@ export const StoneApi = {
   Student: {
     async getStudents(){  
       return await insecureGet('/api/student', null)
-    }
+    },
     
+    async getSection(StudentId){  
+      return await insecureGet(`/api/student/${StudentId}/section`, null)
+    },
+
+    async getProject(StudentId){  
+      return await insecureGet(`/api/student/${StudentId}/project`, null)
+    }
   },
 
   Faculty: {
@@ -70,6 +77,10 @@ export const StoneApi = {
     async fetchAllSection(){
       return await insecureGet('/api/section/fetch', null)
     },
+
+    async getEnrollee(SectionId){
+      return await insecureGet('/api/section/:id/enrollee', null)
+    },
   },
 
   Period: {
@@ -81,7 +92,6 @@ export const StoneApi = {
 
       return current[0] || null
     },
-    
 
     async createPeriod (schoolYear, semester){
       return await insecurePost('/api/period/createPeriod', null, {schoolYear, semester})
@@ -89,9 +99,15 @@ export const StoneApi = {
   },
 
   Schedule: {
-    async createSchedule (FacultyId, dateTime, venue){''
+    async createSchedule (FacultyId, dateTime, venue){
       return await insecurePost('/api/consultationschedule/createSchedule', null, {FacultyId, dateTime, venue, recurring: "once"})
     },
+  },
+
+  Project: {
+    async createProject (studentIds, title, abstract){
+      return await insecurePost('/api/researchproject/createProject', null, {studentIds, title, abstract})
+    }
   }
 };
 

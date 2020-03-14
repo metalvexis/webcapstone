@@ -8,7 +8,7 @@ import { Container, Col, Row, Button } from 'reactstrap';
 
 import ModalCreateProject from 'components/ModalCreateProject/ModalCreateProject.jsx'
 
-import ListSection from 'components/ListSection/ListSection.jsx'
+import ListProject from 'components/ListProject/ListProject.jsx'
 
 import './Project.scss';
 
@@ -24,12 +24,13 @@ function Project(props) {
         <Row>
           <h2>Project</h2>
         </Row>
+        
         <Row>
           <Button onClick={toggleModal}>Create Project</Button>
         </Row>
 
         <Row>
-          <ListSection />
+          <ListProject />
         </Row>
 
         
