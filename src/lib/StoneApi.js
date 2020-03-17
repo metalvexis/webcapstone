@@ -59,13 +59,13 @@ export const StoneApi = {
       return await insecureGet('/api/faculty', null)
     },
 
-    async getSection(){  
-      return await insecureGet('/api/faculty/:id/section', null)
+    async getSection(id){  
+      return await insecureGet(`/api/faculty/${id}/section`, null)
     },
 
     getConsultationSchedule(id){  
       console.log({getSched: id})
-      return insecureGet(`/api/faculty/${id}/schedule/consultation`, null) // TODO: Create Endpoint
+      return insecureGet(`/api/faculty/${id}/schedule/consultation`, null)
     }
   },
 
@@ -74,13 +74,21 @@ export const StoneApi = {
       return await insecurePost('/api/section/createSection', null, {name, FacultyId, PeriodId})
     },
 
+    async fetchSection(SectionId){
+      return await insecureGet(`/api/section/fetch/${SectionId}`, null)
+    },
+
     async fetchAllSection(){
       return await insecureGet('/api/section/fetch', null)
     },
 
     async getEnrollee(SectionId){
-      return await insecureGet('/api/section/:id/enrollee', null)
+      return await insecureGet(`/api/section/${SectionId}/enrollee`, null)
     },
+
+    async addEnrollee(SectionId, enrollee){
+      return await insecurePost(`/api/section/${SectionId}/addEnrollee`, null, {ResearchSectionId: SectionId, enrollee})
+    }
   },
 
   Period: {

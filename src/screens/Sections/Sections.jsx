@@ -29,7 +29,9 @@ function Sections(props) {
         </Row>
 
         <Row>
-          <ListSection />
+          <Col md={12}>
+            <ListSection />
+          </Col>
         </Row>
       </Col>
     </div>
