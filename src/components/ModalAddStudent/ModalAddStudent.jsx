@@ -139,6 +139,8 @@ class ModalAddStudent extends React.Component {
       }))
       
       console.log({response})
+      this.props.toggle()
+      setTimeout(()=>window.location.reload(), 200)
     } catch(err) {
       console.error(err);
     }

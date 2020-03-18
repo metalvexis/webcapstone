@@ -28,7 +28,9 @@ function Schedule(props) {
           <Button onClick={toggleModal}>Create Event</Button>
         </Row>
         <Row>
-          <EventCalendar />
+          <Col md={10} id="calendarContainer">
+            <EventCalendar />
+          </Col>
         </Row>
       </Col>
     </div>

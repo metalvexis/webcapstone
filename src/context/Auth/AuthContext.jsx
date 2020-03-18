@@ -16,20 +16,27 @@ class AuthProvider extends React.Component {
   }
   
   login = async (email, password) => {
-    const { isValidLogin, user, userType } = await StoneApi.Auth.login(email, password);
+    try {
+      const response = await StoneApi.Auth.login(email, password)
+      const { isValidLogin, user, userType } = response;
 
-    console.log({ isValidLogin, user, userType })
-    localStorage.removeItem('email');
+      console.log({ isValidLogin, user, userType })
+      localStorage.removeItem('email');
+      
+      if( !isValidLogin ){
+        return false;
+      }
+
+      localStorage.setItem('email', email);
     
-    if( !isValidLogin ){
+      this.setState({ user, userType, isLoggedIn: true });
+
+      return user;
+
+    } catch(err) {
+      console.log(err)
       return false;
     }
-
-    localStorage.setItem('email', email);
-  
-    this.setState({ user, userType, isLoggedIn: true });
-
-    return user;
   }
 
   loadUser = async() => {
