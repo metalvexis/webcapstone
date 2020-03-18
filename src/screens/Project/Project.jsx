@@ -17,6 +17,16 @@ function Project(props) {
 
   const toggleModal = () => setIsOpen(!isOpen);
 
+  const addProjectBtn = () => {
+    if(props.AuthContext.userType !== "student") return null
+
+    return (
+      <Row>
+        <Button onClick={toggleModal}>Create Project</Button>
+      </Row>
+    )
+  }
+
   return (
     <div className="ProjectScreen">
       <Col>
@@ -25,15 +35,9 @@ function Project(props) {
           <h2>Project</h2>
         </Row>
         
-        <Row>
-          <Button onClick={toggleModal}>Create Project</Button>
-        </Row>
+        { addProjectBtn() }
 
-        <Row>
-          <ListProject />
-        </Row>
-
-        
+        <ListProject />
       </Col>
     </div>
   );

@@ -21,7 +21,7 @@ class ModalCreateSchedule extends React.Component {
     this.state = {
       eventTypes: [
         "Consultation",
-        "Defense"
+        // "Defense"
       ],
       selectedEventType: "Consultation",
       dateTime: null,

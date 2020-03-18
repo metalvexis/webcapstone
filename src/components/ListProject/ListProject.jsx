@@ -8,6 +8,10 @@ import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, For
 
 import { StoneApi } from 'lib/StoneApi.js';
 
+import FacultyProject from './FacultyProject/FacultyProject.js';
+
+import StudentProject from './StudentProject/StudentProject.js';
+
 import moment from 'moment';
 
 import './ListProject.scss';
@@ -25,49 +29,18 @@ class ListProject extends React.Component {
     };
   }
 
-  async componentDidUpdate (prevProps) {
-    if(this.props.AuthContext.user !== prevProps.AuthContext.user){
-      this.loadProject()
+  renderProject = () => {
+    if (this.props.AuthContext.userType === "faculty") {
+      return <FacultyProject/>
+    } else if (this.props.AuthContext.userType === "student") {
+      return <StudentProject/>
     }
-  }
-
-  async componentDidMount () {
-    if(this.props.AuthContext.user && this.props.AuthContext.user.id){
-      this.loadProject()
-    }
-  }
-
-  loadProject = async () => {
-    const currentPeriod = await StoneApi.Period.getCurrentPeriod()
-
-    const studentId = this.props.AuthContext.user.id
-
-    const sections = await StoneApi.Student.getSection(studentId)
-
-    const projects = await StoneApi.Student.getProject(studentId)
-
-    console.log({projects})
-    let project = projects.find(proj=>proj.status==="IP")
-
-    if(project) {
-      const { title, abstract } = project
-      this.setState({
-        title, abstract
-      })
-    }
+    return null
   }
 
   render() {
     return (
-      <React.Fragment>
-        <Row>
-          <Col>
-          <h3>{this.state.title}</h3>
-          <br/>
-          <p>{this.state.abstract}</p>
-          </Col>
-        </Row>
-      </React.Fragment>
+     this.renderProject()
     );
   }
 }

@@ -44,12 +44,17 @@ class FormLogin extends React.Component {
 
       const update = {}
 
-      
-
       update[name] = val
 
       this.setState(update)
 
+    }
+
+    pressedEnter = (e) => {
+      console.log({pressed: e.key})
+      if (e.key === 'Enter') {
+        this.login()
+      }
     }
 
     render() {
@@ -62,7 +67,7 @@ class FormLogin extends React.Component {
 
           <FormGroup>
             <Label for="examplePassword">Password</Label>
-            <Input type="password" name="password" id="examplePassword" value={this.state.password} onChange={this.handleInput}/>
+            <Input type="password" name="password" id="examplePassword" value={this.state.password} onChange={this.handleInput} onKeyUp={this.pressedEnter}/>
           </FormGroup>
           <Button outline block color="primary" onClick={this.login}>Login</Button>
         </Form>

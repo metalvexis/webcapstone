@@ -14,22 +14,6 @@ function Home(props) {
       <SideNav/>
 
       <MainView/>
-      {/* <Col sm={{ size:10, offset: 2}} id="HomeScreen--View">
-        <Switch>
-          <Route exact path="/home/sections">
-            <Sections />
-          </Route>
-
-          <Route exact path="/home/schedule">
-            <Schedule />
-          </Route>
-          
-          <Route exact path="/home/project">
-            <Project />
-          </Route>
-          
-        </Switch>
-      </Col> */}
     </div>
   );
 }

@@ -66,6 +66,10 @@ export const StoneApi = {
     getConsultationSchedule(id){  
       console.log({getSched: id})
       return insecureGet(`/api/faculty/${id}/schedule/consultation`, null)
+    },
+
+    getProject(id){
+      return insecureGet(`/api/faculty/${id}/project`, null)
     }
   },
 
