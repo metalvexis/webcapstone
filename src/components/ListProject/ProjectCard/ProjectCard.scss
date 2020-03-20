@@ -1,0 +1,26 @@
+.ProjectCard {
+  // min-width: 400px;
+  padding: 20px 10px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  .ProjectCard--title {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 14px;
+  }
+
+  .ProjectCard--abstract {
+    p {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      
+    }
+  }
+
+  .ProjectCard--proponents {
+    margin: 5px auto;
+    min-height: 70px;
+  }
+}

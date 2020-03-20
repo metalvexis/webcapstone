@@ -37,7 +37,9 @@ function Project(props) {
         
         { addProjectBtn() }
 
-        <ListProject />
+        <Row>
+          <ListProject />
+        </Row>
       </Col>
     </div>
   );

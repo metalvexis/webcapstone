@@ -8,6 +8,8 @@ import { Row, Col } from 'reactstrap';
 
 import { StoneApi } from 'lib/StoneApi.js';
 
+import ProjectCard from '../ProjectCard/ProjectCard.js';
+
 function FacultyProject(props) {
 
   let [ projects, setProjects ] = useState([])
@@ -23,21 +25,26 @@ function FacultyProject(props) {
 
     const projects = await StoneApi.Faculty.getProject(facultyId)
 
+    const fetchedProjects = []
+    
+    await Promise.all(
+      projects.map(async project => {
+        const fetchedProject = await StoneApi.Project.fetchProject(project.id)
+        fetchedProjects.push(fetchedProject)
+      })
+    )
+
     console.log({projects})
-    setProjects(projects)
+    setProjects(fetchedProjects)
   }
 
   const renderProjects = () => {
     if(!projects) return null
-    return projects.map(p=>{
+    return projects.map((p, idx)=>{
       return (
-        <Row>
-          <Col>
-          <h3>{p.title}</h3>
-          <br/>
-          <p>{p.abstract}</p>
-          </Col>
-        </Row>
+        <Col key={idx} md={4}>
+          <ProjectCard project={p} />
+        </Col>
       )
     })
   }

@@ -119,6 +119,10 @@ export const StoneApi = {
   Project: {
     async createProject (studentIds, title, abstract){
       return await insecurePost('/api/researchproject/createProject', null, {studentIds, title, abstract})
+    },
+
+    async fetchProject (ResearchProjectId){
+      return await insecureGet(`/api/researchproject/fetch/${ResearchProjectId}`, null)
     }
   }
 };

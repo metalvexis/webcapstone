@@ -8,9 +8,9 @@ import { Row, Col } from 'reactstrap';
 
 import { StoneApi } from 'lib/StoneApi.js';
 
-function StudentProject(props) {
+import ProjectCard from '../ProjectCard/ProjectCard.js';
 
-  let [ done, setDone ] = useState(null)
+function StudentProject(props) {
   let [ project, setProject ] = useState({
     title: "",
     abstract: ""
@@ -23,7 +23,6 @@ function StudentProject(props) {
   },[props.AuthContext])
 
   const loadProject = async() => {
-    setDone(false)
     const studentId = props.AuthContext.user.id
 
     const projects = await StoneApi.Student.getProject(studentId)
@@ -31,25 +30,15 @@ function StudentProject(props) {
     let project = projects.find(proj=>proj.status==="IP")
 
     if(project) {
-      const { title, abstract } = project
-      setProject({
-        title, abstract
-      })
-
-      setDone(true)
+      const projectId = project.id;
+      const fetchedProject = await StoneApi.Project.fetchProject(projectId)
+      
+      setProject(fetchedProject)
     }
   }
 
   return (
-    <React.Fragment>
-      <Row>
-        <Col>
-        <h3>{project.title}</h3>
-        <br/>
-        <p>{project.abstract}</p>
-        </Col>
-      </Row>
-    </React.Fragment>
+    <ProjectCard project={project} />
   )
 }
 
