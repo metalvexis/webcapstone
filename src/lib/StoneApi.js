@@ -69,6 +69,10 @@ export const StoneApi = {
 
     getProject(id){
       return insecureGet(`/api/faculty/${id}/project`, null)
+    },
+    
+    async setAdviser(FacultyId, ResearchProjectId){
+      return await insecurePost(`/api/faculty/setAdviser`, null, {FacultyId, ResearchProjectId})
     }
   },
 
@@ -118,6 +122,10 @@ export const StoneApi = {
 
     async fetchProject (ResearchProjectId){
       return await insecureGet(`/api/researchproject/fetch/${ResearchProjectId}`, null)
+    },
+
+    async setProponent(ResearchProjectId, StudentIds){
+      return await insecurePost('/api/researchproject/setProponent', null, {ResearchProjectId, StudentIds})
     }
   }
 };

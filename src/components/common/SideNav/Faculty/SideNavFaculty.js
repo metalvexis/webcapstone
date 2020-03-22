@@ -19,6 +19,12 @@ function SideNavFaculty() {
       <ListGroupItem className="SideNav--ListItem">
         <Link to="/home/appointment">Appointment</Link>
       </ListGroupItem>
+      <ListGroupItem className="SideNav--ListItem">
+        <Link to="/home/milestones">Milestones</Link>
+      </ListGroupItem>
+      <ListGroupItem className="SideNav--ListItem">
+        <Link to="/home/Criteria">Criteria</Link>
+      </ListGroupItem>
     </ListGroup>
   );
 }

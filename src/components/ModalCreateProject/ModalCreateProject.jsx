@@ -19,10 +19,30 @@ class ModalCreateProject extends React.Component {
     this.state = {
       title: "",
       abstract: "",
-      sectionId: ""
+      FacultyId: "",
+      facultyList: []
     };
   }
 
+  componentDidMount() {
+    if(this.props.AuthContext.user){
+      this.loadData()  
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.AuthContext.user !== this.props.AuthContext.user){
+      this.loadData()  
+    }
+  }
+
+  async loadData() {
+    
+    const userId = this.props.AuthContext.user.id
+    const facultyList = await StoneApi.Faculty.getFaculties()
+    
+    this.setState({ facultyList })
+  }
   handleInput = (e) => {
     const name = e.target.name
     const val = e.target.value
@@ -36,12 +56,37 @@ class ModalCreateProject extends React.Component {
   }
 
   createProject = async () => {
-    const { title, abstract } = this.state
+    const { title, abstract, FacultyId } = this.state
     const StudentId = this.props.AuthContext.user.id
-    const response = await StoneApi.Project.createProject([StudentId], title, abstract)
+    const ResearchProject = await StoneApi.Project.createProject([StudentId], title, abstract)
+    const ResearchProject_id = ResearchProject.id
 
-    console.log({createProjectResponse: response})
+    console.log({ResearchProject_id, FacultyId})
+
+    const Adviser = await StoneApi.Faculty.setAdviser(FacultyId, ResearchProject_id)
+
+    console.log({ResearchProject, Adviser})
     this.props.toggle()
+  }
+
+  adviserOptions = () => {
+    const { facultyList } = this.state
+
+    if(!facultyList) return [] 
+
+    const options = facultyList.map((f,idx)=>{
+      return (
+        <option key={idx} value={f.id}>
+          {f.fName} {f.lName}
+        </option>
+      )
+    })
+
+    return options
+  }
+
+  proponentOptions = () => {
+    
   }
 
   render() {
@@ -53,6 +98,13 @@ class ModalCreateProject extends React.Component {
             <FormGroup>
               <Label for="title">Title</Label>
               <Input type="text" name="title" id="title" value={this.state.title} onChange={this.handleInput}/>
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="FacultyId">Adviser</Label>
+              <Input type="select" name="FacultyId" id="FacultyId" value={this.state.FacultyId} onChange={this.handleInput}>
+                {this.adviserOptions()}
+              </Input>
             </FormGroup>
 
             <FormGroup>
