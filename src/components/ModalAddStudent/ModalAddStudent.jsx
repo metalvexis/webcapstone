@@ -129,7 +129,7 @@ class ModalAddStudent extends React.Component {
         lName: s['Last Name'],
         email: s['Email'],
         contact: s['Contact'],
-        gender: s['gender']
+        gender: s['Gender']
       }
     })
 
