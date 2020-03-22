@@ -8,11 +8,9 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, La
 
 import { StoneApi } from 'lib/StoneApi.js';
 
-import moment from 'moment';
+import './ModalProject.scss';
 
-import './ModalCreateProject.scss';
-
-class ModalCreateProject extends React.Component {
+class ModalProject extends React.Component {
   constructor(props) {
     super(props);
     
@@ -37,12 +35,19 @@ class ModalCreateProject extends React.Component {
   }
 
   async loadData() {
-    
-    const userId = this.props.AuthContext.user.id
+    if(this.props.ResearchProjectId) {
+      const existingProject = await StoneApi.Project.fetchProject(this.props.ResearchProjectId)
+      const { title, abstract } = existingProject
+      const FacultyId = existingProject.ProjectAdvisers[0].id
+
+      this.setState({ title, abstract, FacultyId })
+    }
+
     const facultyList = await StoneApi.Faculty.getFaculties()
     
     this.setState({ facultyList })
   }
+
   handleInput = (e) => {
     const name = e.target.name
     const val = e.target.value
@@ -52,7 +57,6 @@ class ModalCreateProject extends React.Component {
     update[name] = val
 
     this.setState(update)
-    
   }
 
   createProject = async () => {
@@ -60,12 +64,7 @@ class ModalCreateProject extends React.Component {
     const StudentId = this.props.AuthContext.user.id
     const ResearchProject = await StoneApi.Project.createProject([StudentId], title, abstract)
     const ResearchProject_id = ResearchProject.id
-
-    console.log({ResearchProject_id, FacultyId})
-
-    const Adviser = await StoneApi.Faculty.setAdviser(FacultyId, ResearchProject_id)
-
-    console.log({ResearchProject, Adviser})
+    await StoneApi.Faculty.setAdviser(FacultyId, ResearchProject_id)
     this.props.toggle()
   }
 
@@ -85,14 +84,10 @@ class ModalCreateProject extends React.Component {
     return options
   }
 
-  proponentOptions = () => {
-    
-  }
-
   render() {
     return (
       <Modal isOpen={this.props.isOpen} backdrop="static">
-        <ModalHeader toggle={this.props.toggle}>New Project</ModalHeader>
+        <ModalHeader toggle={this.props.toggle}>Project</ModalHeader>
         <ModalBody>
           <Form id="FormCreateProject">
             <FormGroup>
@@ -123,4 +118,4 @@ class ModalCreateProject extends React.Component {
 
 const enhance = compose(withAuthContext);
 
-export default enhance(ModalCreateProject);
+export default enhance(ModalProject);

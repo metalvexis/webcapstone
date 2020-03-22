@@ -6,7 +6,7 @@ import { withAuthContext } from 'context/Auth/AuthContext.jsx';
 
 import { Container, Col, Row, Button } from 'reactstrap';
 
-import ModalCreateProject from 'components/ModalCreateProject/ModalCreateProject.jsx'
+import ModalProject from 'components/ModalProject/ModalProject.jsx'
 
 import ListProject from 'components/ListProject/ListProject.jsx'
 
@@ -30,7 +30,7 @@ function Project(props) {
   return (
     <div className="ProjectScreen">
       <Col>
-        <ModalCreateProject isOpen={isOpen} toggle={toggleModal} />
+        <ModalProject isOpen={isOpen} toggle={toggleModal} />
         <Row>
           <h2>Project</h2>
         </Row>

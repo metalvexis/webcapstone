@@ -43,7 +43,7 @@ function FacultyProject(props) {
     return projects.map((p, idx)=>{
       return (
         <Col key={idx} md={4}>
-          <ProjectCard project={p} />
+          <ProjectCard project={p} userType={props.AuthContext.userType}/>
         </Col>
       )
     })

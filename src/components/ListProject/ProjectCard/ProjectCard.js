@@ -6,10 +6,17 @@ import './ProjectCard.scss';
 
 import ModalProponents from 'components/ModalProponents/ModalProponents.jsx';
 
-function ProjectCard(props) {
-  const [isOpen, setIsOpen] = useState(false);
+import ModalProject from 'components/ModalProject/ModalProject.jsx';
 
-  const toggleModal = () => setIsOpen(!isOpen);
+function ProjectCard(props) {
+  const [isProponentModalOpen, setIsProponentModalOpen] = useState(false);
+  const toggleProponentModal = () => setIsProponentModalOpen(!isProponentModalOpen);
+
+  const [isPanelistModalOpen, setIsPanelistModalOpen] = useState(false);
+  const togglePanelistModal = () => setIsPanelistModalOpen(!isPanelistModalOpen);
+
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const toggleProjectModal = () => setIsProjectModalOpen(!isProjectModalOpen);
 
   const renderProponents = () => {
     const proponents = props.project.Students.map((proponent, idx) => {
@@ -31,7 +38,8 @@ function ProjectCard(props) {
 
   return (
     <>
-      <ModalProponents ResearchProjectId={props.project.id} isOpen={isOpen} toggle={toggleModal} />
+      <ModalProponents ResearchProjectId={props.project.id} isOpen={isProponentModalOpen} toggle={toggleProponentModal} />
+      <ModalProject ResearchProjectId={props.project.id} isOpen={isProjectModalOpen} toggle={toggleProjectModal} />
       <div className="ProjectCard">
         <Row>
           <Col>
@@ -52,8 +60,16 @@ function ProjectCard(props) {
               <p>Adviser: {props.project.ProjectAdvisers[0].fName} {props.project.ProjectAdvisers[0].lName}</p>
             </div>
 
-            <div>
-              <Button size="sm" className="float-right" onClick={toggleModal}>Edit Proponents</Button>
+            <div className="float-left" >
+              {props.userType === "faculty" && 
+                <Button size="sm" onClick={togglePanelistModal}>Panelists</Button>
+              }
+              {' '}
+              <Button size="sm" onClick={toggleProponentModal}>Proponents</Button>
+            </div>
+
+            <div className="float-right" >
+              <Button size="sm" onClick={toggleProjectModal}>Details</Button>
             </div>
           </Col>
         </Row>
