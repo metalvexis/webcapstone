@@ -5,7 +5,7 @@ import { Row, Col } from 'reactstrap';
 import './ProjectCard.scss';
 
 function ProjectCard(props) {
-
+  
   const renderProponents = () => {
     const proponents = props.project.Students.map((proponent, idx) => {
       return (

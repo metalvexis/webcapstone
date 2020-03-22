@@ -11,10 +11,7 @@ import { StoneApi } from 'lib/StoneApi.js';
 import ProjectCard from '../ProjectCard/ProjectCard.js';
 
 function StudentProject(props) {
-  let [ project, setProject ] = useState({
-    title: "",
-    abstract: ""
-  })
+  let [ project, setProject ] = useState(null)
   
   useEffect(() => {
     if(props.AuthContext.user && props.AuthContext.user.id){
@@ -37,8 +34,12 @@ function StudentProject(props) {
     }
   }
 
+  if(!project) return null
+  
   return (
-    <ProjectCard project={project} />
+    <Col md={4}>
+      <ProjectCard project={project} />
+    </Col>
   )
 }
 

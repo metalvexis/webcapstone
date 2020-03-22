@@ -16,12 +16,12 @@ class AuthProvider extends React.Component {
   }
   
   login = async (email, password) => {
+    localStorage.removeItem('email');
     try {
       const response = await StoneApi.Auth.login(email, password)
       const { isValidLogin, user, userType } = response;
 
       console.log({ isValidLogin, user, userType })
-      localStorage.removeItem('email');
       
       if( !isValidLogin ){
         return false;

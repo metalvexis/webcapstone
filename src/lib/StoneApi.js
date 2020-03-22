@@ -18,8 +18,8 @@ export const StoneApi = {
     },
 
     async getUser(email){
-      const students = await insecureGet('/api/student', null)
-      const faculties = await insecureGet('/api/faculty', null)
+      const students = await insecureGet('/api/student/all', null)
+      const faculties = await insecureGet('/api/faculty/all', null)
 
       const findS = students ? students.filter(student=>student.email===email) : null
       const findF = faculties ? faculties.filter(faculty=>faculty.email===email) : null
@@ -42,7 +42,7 @@ export const StoneApi = {
 
   Student: {
     async getStudents(){  
-      return await insecureGet('/api/student', null)
+      return await insecureGet('/api/student/all', null)
     },
     
     async getSection(StudentId){  
@@ -56,15 +56,14 @@ export const StoneApi = {
 
   Faculty: {
     async getFaculties(){
-      return await insecureGet('/api/faculty', null)
+      return await insecureGet('/api/faculty/all', null)
     },
 
     async getSection(id){  
       return await insecureGet(`/api/faculty/${id}/section`, null)
     },
 
-    getConsultationSchedule(id){  
-      console.log({getSched: id})
+    getConsultationSchedule(id){
       return insecureGet(`/api/faculty/${id}/schedule/consultation`, null)
     },
 
@@ -82,10 +81,6 @@ export const StoneApi = {
       return await insecureGet(`/api/section/fetch/${SectionId}`, null)
     },
 
-    async fetchAllSection(){
-      return await insecureGet('/api/section/fetch', null)
-    },
-
     async getEnrollee(SectionId){
       return await insecureGet(`/api/section/${SectionId}/enrollee`, null)
     },
@@ -97,7 +92,7 @@ export const StoneApi = {
 
   Period: {
     async getCurrentPeriod () {
-      const periods = await insecureGet('/api/period')
+      const periods = await insecureGet('/api/period/all')
       const current = periods.filter( period => {
         return period.schoolYear==="2019" && period.semester==="2"
       } )
