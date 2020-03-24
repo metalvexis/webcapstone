@@ -10,9 +10,9 @@ import { StoneApi } from 'lib/StoneApi.js';
 
 import moment from 'moment';
 
-import './ModalProponents.scss';
+import './ModalProponent.scss';
 
-class ModalProponents extends React.Component {
+class ModalProponent extends React.Component {
   constructor(props) {
     super(props);
     
@@ -131,4 +131,4 @@ class ModalProponents extends React.Component {
 
 const enhance = compose(withAuthContext);
 
-export default enhance(ModalProponents);
+export default enhance(ModalProponent);

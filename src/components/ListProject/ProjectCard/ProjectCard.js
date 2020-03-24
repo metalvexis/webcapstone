@@ -4,9 +4,11 @@ import { Row, Col, Button } from 'reactstrap';
 
 import './ProjectCard.scss';
 
-import ModalProponents from 'components/ModalProponents/ModalProponents.jsx';
+import ModalProponent from 'components/ModalProponent/ModalProponent.jsx';
 
 import ModalProject from 'components/ModalProject/ModalProject.jsx';
+
+import ModalPanelist from 'components/ModalPanelist/ModalPanelist.jsx'
 
 function ProjectCard(props) {
   const [isProponentModalOpen, setIsProponentModalOpen] = useState(false);
@@ -36,10 +38,27 @@ function ProjectCard(props) {
     )
   }
 
+  const renderPanelists = () => {
+    if(!props.project.ProjectPanelists) return null
+
+    let panelists = props.project.ProjectPanelists.map(panelist=>{
+      return panelist.fName + ' ' + panelist.lName
+    })
+
+    return (
+      <p>
+        Panelists: {panelists.join(', ')}
+      </p>
+    
+    )
+    
+  }
+
   return (
     <>
-      <ModalProponents ResearchProjectId={props.project.id} isOpen={isProponentModalOpen} toggle={toggleProponentModal} />
+      <ModalProponent ResearchProjectId={props.project.id} isOpen={isProponentModalOpen} toggle={toggleProponentModal} />
       <ModalProject ResearchProjectId={props.project.id} isOpen={isProjectModalOpen} toggle={toggleProjectModal} />
+      <ModalPanelist ResearchProjectId={props.project.id} isOpen={isPanelistModalOpen} toggle={togglePanelistModal} />
       <div className="ProjectCard">
         <Row>
           <Col>
@@ -58,6 +77,10 @@ function ProjectCard(props) {
 
             <div className="ProjectCard--adviser">
               <p>Adviser: {props.project.ProjectAdvisers[0].fName} {props.project.ProjectAdvisers[0].lName}</p>
+            </div>
+
+            <div className="ProjectCard--panelists">
+              {renderPanelists()}
             </div>
 
             <div className="float-left" >

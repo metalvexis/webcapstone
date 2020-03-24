@@ -73,6 +73,10 @@ export const StoneApi = {
     
     async setAdviser(FacultyId, ResearchProjectId){
       return await insecurePost(`/api/faculty/setAdviser`, null, {FacultyId, ResearchProjectId})
+    },
+
+    async setPanelist(FacultyIds, ResearchProjectId){
+      return await insecurePost(`/api/faculty/setPanelist`, null, {FacultyIds, ResearchProjectId})
     }
   },
 

@@ -104,7 +104,7 @@ class ModalProject extends React.Component {
 
             <FormGroup>
               <Label for="abstract">Abstract</Label>
-              <Input type="textarea" name="abstract" id="abstract" rows={4} value={this.state.abstract} onChange={this.handleInput}/>
+              <Input type="textarea" name="abstract" id="abstract" rows={6} value={this.state.abstract} onChange={this.handleInput}/>
             </FormGroup>
           </Form>
         </ModalBody>
