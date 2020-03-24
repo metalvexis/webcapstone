@@ -12,6 +12,8 @@ import Schedule from 'screens/Schedule/Schedule.jsx';
 
 import Sections from 'screens/Sections/Sections.jsx';
 
+import Consult from 'screens/Consult/Consult.jsx';
+
 function MainView(props) {
   const redirect = () => {
 
@@ -39,6 +41,10 @@ function MainView(props) {
         
         <Route exact path="/home/project">
           <Project />
+        </Route>
+
+        <Route exact path="/home/consult">
+          <Consult />
         </Route>
         
       </Switch>
