@@ -14,6 +14,8 @@ import Sections from 'screens/Sections/Sections.jsx';
 
 import Consult from 'screens/Consult/Consult.jsx';
 
+import Appointment from 'screens/Appointment/Appointment.jsx'
+
 function MainView(props) {
   const redirect = () => {
 
@@ -47,6 +49,10 @@ function MainView(props) {
           <Consult />
         </Route>
         
+        <Route exact path="/home/appointment">
+          <Appointment />
+        </Route>
+
       </Switch>
     </Col>
   );

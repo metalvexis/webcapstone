@@ -10,6 +10,8 @@ import moment from 'moment'
 
 import { StoneApi } from 'lib/StoneApi.js';
 
+import ModalAppointment from 'components/ModalAppointment/ModalAppointment.jsx';
+
 import './SearchSchedule.scss';
 
 class SearchSchedule extends React.Component {
@@ -17,7 +19,9 @@ class SearchSchedule extends React.Component {
     super(props)
     this.state = {
       facultyList:[],
-      FacultyId: ""
+      FacultyId: "",
+      ConsultationScheduleId: "",
+      showAppointmentModal: false
     }
   }
 
@@ -58,17 +62,33 @@ class SearchSchedule extends React.Component {
     return options
   }
 
+  toggleAppointmentModal = () => {
+    this.setState({
+      showAppointmentModal: !this.state.showAppointmentModal
+    })
+  }
+
+  onSelectEvent = (o, e) => {
+    console.log({o, e})
+    this.setState({
+      ConsultationScheduleId: o.ConsultationScheduleId,
+      showAppointmentModal: true
+    })
+  }
+
   render() {
     return (
       <>
+        <ModalAppointment isOpen={this.state.showAppointmentModal} toggle={this.toggleAppointmentModal} ConsultationScheduleId={this.state.ConsultationScheduleId}/>
         <Col md={3}>
-          <Label htmlFor="FacultyId">View Schedule of {' '}</Label>
+          <Label htmlFor="FacultyId">Select Faculty {' '}</Label>
           <Input type="select" name="FacultyId" id="FacultyId" value={this.state.FacultyId} onChange={this.handleInput}>
+            <option value=""></option>
             {this.facultyOptions()}
           </Input>
         </Col>
         <Col md={9}>
-          <FacultyCalendar FacultyId={this.state.FacultyId}/>
+          <FacultyCalendar onSelectEvent={this.onSelectEvent} FacultyId={this.state.FacultyId}/>
         </Col>
       </>
       

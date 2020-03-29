@@ -26,7 +26,7 @@ function FacultyProject(props) {
     const projects = await StoneApi.Faculty.getProject(facultyId)
 
     const fetchedProjects = []
-    
+    if(projects.length)
     await Promise.all(
       projects.map(async project => {
         const fetchedProject = await StoneApi.Project.fetchProject(project.id)

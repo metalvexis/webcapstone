@@ -117,6 +117,10 @@ export const StoneApi = {
     async createSchedule (FacultyId, dateTime, venue){
       return await insecurePost('/api/consultationschedule/createSchedule', null, {FacultyId, dateTime, venue, recurring: "once"})
     },
+
+    async fetchSchedule (ConsultationScheduleId){
+      return await insecureGet(`/api/consultationschedule/fetch/${ConsultationScheduleId}`, null)
+    },
   },
 
   Project: {
@@ -131,6 +135,25 @@ export const StoneApi = {
     async setProponent(ResearchProjectId, StudentIds){
       return await insecurePost('/api/researchproject/setProponent', null, {ResearchProjectId, StudentIds})
     }
+  },
+
+  Appointment: {
+    async sendRequest (ResearchProjectId, ConsultationScheduleId, concern) {
+      return await insecurePost('/api/appointment/sendRequest', null, {ResearchProjectId, ConsultationScheduleId, concern})
+    },
+
+    async sendResponse (ResearchProjectId, ConsultationScheduleId, prerequisite, status) {
+      return await insecurePost('/api/appointment/sendResponse', null, {ResearchProjectId, ConsultationScheduleId, prerequisite, status})
+    },
+
+    async setFeedback (ResearchProjectId, ConsultationScheduleId, feedback) {
+      return await insecurePost('/api/appointment/setFeedback', null, {ResearchProjectId, ConsultationScheduleId, feedback})
+    },
+
+    async fetchAppointment (AppointmentId) {
+      return await insecureGet(`/api/appointment/fetch/${AppointmentId}`, null)
+    },
+
   }
 };
 

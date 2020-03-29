@@ -54,11 +54,15 @@ class FacultyCalendar extends React.Component {
     this.setState({ events })
   }
 
+  onSelectEvent = (o, e) => {
+    this.props.onSelectEvent(o, e);
+  }
+
   render() {
     const localizer = momentLocalizer(moment)
     return (
       <Calendar
-        onSelectEvent={(o,e)=>console.log({o,e})}
+        onSelectEvent={(o,e)=>this.onSelectEvent(o,e)}
         localizer={localizer} 
         events={this.state.events}
         style={{ height: 800 }}/>
