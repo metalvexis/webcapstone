@@ -83,39 +83,39 @@ function Appointment(props) {
     <>
       <ModalAppointment isOpen={showAppointmentModal} toggle={toggleAppointmentModal} AppointmentId={AppointmentId}/>
       <div className="AppointmentScreen">
-      <Col>
-        <Row>
-          <h2>Appointment</h2>
-        </Row>
+        <Col>
+          <Row>
+            <h2>Appointment</h2>
+          </Row>
 
-        <Row>
-          <Col md={10}>
-            <h4>Pending Consultation Requests</h4>
-            <Row>
-              {renderAppointments("Pending")}
-            </Row>
-          </Col>
-        </Row>
+          <Row>
+            <Col md={10} className="appointment__entry">
+              <h4>Pending Consultation Requests</h4>
+              <Row>
+                {renderAppointments("Pending")}
+              </Row>
+            </Col>
+          </Row>
 
-        <Row>
-          <Col md={10}>
-            <h4>Scheduled Consultations</h4>
-            <Row>
-              {renderAppointments("Accepted")}
-            </Row>
-          </Col>
-        </Row>
+          <Row>
+            <Col md={10} className="appointment__entry">
+              <h4>Scheduled Consultations</h4>
+              <Row>
+                {renderAppointments("Accepted")}
+              </Row>
+            </Col>
+          </Row>
 
-        <Row>
-          <Col md={10}>
-            <h4>Consultations Conducted</h4>
-            <Row>
-              {renderAppointments("Closed")}
-            </Row>
-          </Col>
-        </Row>
-      </Col>
-    </div>
+          <Row>
+            <Col md={10} className="appointment__entry">
+              <h4>Consultations Conducted</h4>
+              <Row>
+                {renderAppointments("Closed")}
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      </div>
     </>
     
   );

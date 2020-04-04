@@ -123,13 +123,13 @@ class ModalAppointment extends React.Component {
   isAccepted = () => {
     const { appointment } = this.state
 
-    return appointment.status === "Accepted"
+    return appointment && appointment.status === "Accepted"
   }
 
   isClosed = () => {
     const { appointment } = this.state
 
-    return appointment.status === "Closed"
+    return appointment && appointment.status === "Closed"
   }
 
   renderSubmit = () => {
@@ -137,7 +137,7 @@ class ModalAppointment extends React.Component {
     
     if(isFaculty) {
 
-      if(this.isAccepted()) {
+      if(this.isAccepted() || this.isClosed()) {
         return (
           <Col md={12}>
             <Button block color="primary" onClick={this.setFeedback}>Save</Button>
