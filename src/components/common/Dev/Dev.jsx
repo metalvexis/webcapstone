@@ -24,7 +24,7 @@ class Dev extends React.Component {
 
   async componentDidMount() {
     await this.props.AuthContext.loadUser();
-    const faculty = await StoneApi.User.getFaculties();
+    const faculty = await StoneApi.Faculty.getFaculties();
 
     this.setState({
       faculty
@@ -46,7 +46,7 @@ class Dev extends React.Component {
   renderRoles = (user) => {
     const roles = ['dean', 'coordinator'];
     return roles.map(r => {
-      let color = 'primary'; //user.roles.includes(r) ? 'success' : 'secondary';
+      let color = 'secondary'; //user.roles.includes(r) ? 'success' : 'secondary';
       return (<Button color={color}>{r}</Button>)
     })
   }

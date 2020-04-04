@@ -23,7 +23,7 @@ function SideNavFaculty() {
         <Link to="/home/milestones">Milestones</Link>
       </ListGroupItem>
       <ListGroupItem className="SideNav--ListItem">
-        <Link to="/home/Criteria">Criteria</Link>
+        <Link to="/home/criteria">Grading Sheets</Link>
       </ListGroupItem>
     </ListGroup>
   );

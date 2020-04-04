@@ -39,8 +39,9 @@ function Appointment(props) {
   },[props.AuthContext])
 
   const renderAppointments = (status) => {
-    if(!appointments) return <hr />
-    return appointments.filter(apt=>apt.status===status).map((apt,idx) => {
+    if(!appointments) return (<p>No Appointment</p>)
+    
+    const toRender = appointments.filter(apt=>apt.status===status).map((apt,idx) => {
       const dateTime = moment(apt.ConsultationSchedule.dateTime).format('LLLL')
       return (
         <Col md={4} key={idx}>
@@ -77,6 +78,10 @@ function Appointment(props) {
         </Col>
       )
     })
+
+    if(!toRender.length) return (<p>No Appointment</p>)
+
+    return toRender
   }
 
   return (
@@ -91,27 +96,21 @@ function Appointment(props) {
           <Row>
             <Col md={10} className="appointment__entry">
               <h4>Pending Consultation Requests</h4>
-              <Row>
-                {renderAppointments("Pending")}
-              </Row>
+              {renderAppointments("Pending")}
             </Col>
           </Row>
 
           <Row>
             <Col md={10} className="appointment__entry">
               <h4>Scheduled Consultations</h4>
-              <Row>
-                {renderAppointments("Accepted")}
-              </Row>
+              {renderAppointments("Accepted")}
             </Col>
           </Row>
 
           <Row>
             <Col md={10} className="appointment__entry">
               <h4>Consultations Conducted</h4>
-              <Row>
-                {renderAppointments("Closed")}
-              </Row>
+              {renderAppointments("Closed")}
             </Col>
           </Row>
         </Col>
