@@ -154,6 +154,16 @@ export const StoneApi = {
       return await insecureGet(`/api/appointment/fetch/${AppointmentId}`, null)
     },
 
+  },
+
+  Criteria: {
+    async fetchCriteria (CriteriaId) {
+      return await insecureGet(`/api/criteria/fetch/${CriteriaId}`, null)
+    },
+
+    async createCriteria (title, description, percentage) {
+      return await insecurePost('/api/criteria/create', null, {title, description, percentage})
+    }
   }
 };
 
