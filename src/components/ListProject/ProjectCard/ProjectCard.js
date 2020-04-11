@@ -10,6 +10,8 @@ import ModalProject from 'components/ModalProject/ModalProject.jsx';
 
 import ModalPanelist from 'components/ModalPanelist/ModalPanelist.jsx'
 
+import ModalCreateDefense from 'components/ModalCreateDefense/ModalCreateDefense.jsx'
+
 function ProjectCard(props) {
   const [isProponentModalOpen, setIsProponentModalOpen] = useState(false);
   const toggleProponentModal = () => setIsProponentModalOpen(!isProponentModalOpen);
@@ -19,6 +21,9 @@ function ProjectCard(props) {
 
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const toggleProjectModal = () => setIsProjectModalOpen(!isProjectModalOpen);
+
+  const [isCreateDefenseModalOpen, setIsCreateDefenseModalOpen] = useState(false);
+  const toggleDefenseModal = () => setIsCreateDefenseModalOpen(!isCreateDefenseModalOpen);
 
   const renderProponents = () => {
     const proponents = props.project.Students.map((proponent, idx) => {
@@ -59,10 +64,12 @@ function ProjectCard(props) {
       <ModalProponent ResearchProjectId={props.project.id} isOpen={isProponentModalOpen} toggle={toggleProponentModal} />
       <ModalProject ResearchProjectId={props.project.id} isOpen={isProjectModalOpen} toggle={toggleProjectModal} />
       <ModalPanelist ResearchProjectId={props.project.id} isOpen={isPanelistModalOpen} toggle={togglePanelistModal} />
+      <ModalCreateDefense ResearchProjectId={props.project.id} isOpen={isCreateDefenseModalOpen} toggle={toggleDefenseModal} />
+
       <div className="ProjectCard">
         <Row>
           <Col>
-            <div className="ProjectCard--title">
+            <div className="ProjectCard--title" onClick={toggleProjectModal}>
               {props.project.title}
             </div>
 
@@ -92,7 +99,7 @@ function ProjectCard(props) {
             </div>
 
             <div className="float-right" >
-              <Button size="sm" onClick={toggleProjectModal}>Details</Button>
+              <Button size="sm" onClick={toggleDefenseModal}>Schedule Defense</Button>
             </div>
           </Col>
         </Row>
