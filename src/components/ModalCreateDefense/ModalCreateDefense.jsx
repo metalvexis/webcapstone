@@ -22,7 +22,7 @@ class ModalCreateDefense extends React.Component {
     this.state = {
       project: null, facultyList: [], panelists: [],
       venue: 'JH24',
-      datetime: new Date(),
+      dateTime: new Date(),
       existingCriteria: [],
       criteria: []
 
@@ -41,8 +41,34 @@ class ModalCreateDefense extends React.Component {
     this.setState({ project, facultyList, panelists: project.ProjectPanelists, existingCriteria })
   }
 
+  saveDefenseSchedule = async () => {
+    let { panelists, criteria, dateTime, venue, category } = this.state
+    const ResearchProjectId = this.props.ResearchProjectId
+    const PanelistIds = panelists.map(panelist=>panelist.id)
+
+    try {
+      console.log({PanelistIds, ResearchProjectId})
+      await StoneApi.GradingSheet.createGradingSheet(ResearchProjectId, PanelistIds, criteria)
+      // await StoneApi.Defense.createDefenseSchedule({ ResearchProjectId, PanelistIds, dateTime, venue, category })
+    } catch(err) {
+      alert(err)
+    }
+  }
+
+  handleInput = (e) => {
+    const name = e.target.name
+    const val = e.target.value
+
+    const update = {}
+
+    update[name] = val
+
+    this.setState(update)
+
+  }
+
   setDateTime = (date) => {
-    this.setState({ datetime: date })
+    this.setState({ dateTime: date })
   }
 
   addCriteria = () => {
@@ -51,7 +77,8 @@ class ModalCreateDefense extends React.Component {
     criteria.push({
       title: `New Criteria ${criteria.length}`,
       description: '',
-      percentage: 1.0
+      percentage: 1.0,
+      sequence: criteria.length
     })
 
     this.setState({ criteria })
@@ -159,7 +186,7 @@ class ModalCreateDefense extends React.Component {
 
                 <FormGroup>
                   <Label>Panelists</Label>
-                  <ListGroup>
+                  <ListGroup className="FormCreateDefense__panelists">
                     { this.renderPanelists() }
                   </ListGroup>
                 </FormGroup>
@@ -169,7 +196,7 @@ class ModalCreateDefense extends React.Component {
               <Col md={6}>
                 <FormGroup>
                   <Label for="venue">Defense Phase</Label>
-                  <Input type="select" name="select" id="exampleSelect">
+                  <Input type="select" name="category" id="category" value={this.state.category} onChange={this.handleInput}>
                     <option value="title">Title Defense</option>
                     <option value="preliminary">Preliminary Defense</option>
                     <option value="final">Final Defense</option>
@@ -180,7 +207,7 @@ class ModalCreateDefense extends React.Component {
                   <Label>Date and Time</Label>
                   <div className="date-picker">
                   <DatePicker 
-                      selected={this.state.datetime}
+                      selected={this.state.dateTime}
                       onChange={date => this.setDateTime(date)}
                       showTimeSelect
                       timeFormat="h:mm aa"
@@ -195,7 +222,7 @@ class ModalCreateDefense extends React.Component {
 
                 <FormGroup>
                   <Label for="venue">Venue</Label>
-                  <Input type="text" name="venue" id="venue" placeholder="Venue" defaultValue={this.state.venue} />
+                  <Input type="text" name="venue" id="venue" placeholder="Venue" value={this.state.venue} onChange={this.handleInput}/>
                 </FormGroup>
               </Col>
             </Row>
@@ -212,7 +239,7 @@ class ModalCreateDefense extends React.Component {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary">Save</Button>
+          <Button color="primary" onClick={this.saveDefenseSchedule}>Save</Button>
         </ModalFooter>
       </Modal>
     );

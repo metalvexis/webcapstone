@@ -161,9 +161,30 @@ export const StoneApi = {
       return await insecureGet(`/api/criteria/fetch/${CriteriaId}`, null)
     },
 
-    async createCriteria (title, description, percentage) {
+    async create (title, description, percentage) {
       return await insecurePost('/api/criteria/create', null, {title, description, percentage})
     }
+  },
+
+  GradingSheet: {
+    async fetchGradingSheet (GradingSheetId) {
+      return await insecureGet(`/api/gradingsheet/fetch/${GradingSheetId}`, null)
+    },
+
+    async createGradingSheet (ResearchProjectId, PanelistIds, criteria) {
+      return await insecurePost('/api/gradingsheet/createGradingSheet', null, { ResearchProjectId, PanelistIds, criteria })
+    }
+  },
+
+  Defense: {
+    async fetchDefenseSchedule (DefenseScheduleId) {
+      return await insecureGet(`/api/defenseschedule/fetch/${DefenseScheduleId}`, null)
+    },
+
+    async createDefenseSchedule (ResearchProjectId, PanelistIds, dateTime, venue, category) {
+      return await insecurePost('/api/defenseschedule/createDefenseSchedule', null, { ResearchProjectId, PanelistIds, dateTime, venue, category })
+    }
+    
   }
 };
 
