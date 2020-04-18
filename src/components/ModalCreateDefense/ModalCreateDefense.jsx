@@ -24,8 +24,8 @@ class ModalCreateDefense extends React.Component {
       venue: 'JH24',
       dateTime: new Date(),
       existingCriteria: [],
-      criteria: []
-
+      criteria: [],
+      category: 'title'
     };
   }
 
@@ -48,8 +48,10 @@ class ModalCreateDefense extends React.Component {
 
     try {
       console.log({PanelistIds, ResearchProjectId})
+
       await StoneApi.GradingSheet.createGradingSheet(ResearchProjectId, PanelistIds, criteria)
-      // await StoneApi.Defense.createDefenseSchedule({ ResearchProjectId, PanelistIds, dateTime, venue, category })
+      await StoneApi.Defense.createDefenseSchedule(ResearchProjectId, PanelistIds, dateTime, venue, category)
+
     } catch(err) {
       alert(err)
     }
@@ -122,9 +124,7 @@ class ModalCreateDefense extends React.Component {
           </Col>
           <Col md={1}>
             <Button block size="sm" color="danger" onClick={()=>this.removeCriteria(idx)}>
-              <svg class="bi bi-x-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zm-4.146-3.146a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z" clip-rule="evenodd"/>
-              </svg>
+              X
             </Button>
           </Col>
         </Row>
