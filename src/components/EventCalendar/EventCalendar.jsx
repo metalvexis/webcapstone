@@ -37,19 +37,41 @@ class EventCalendar extends React.Component {
   }
 
   updateEvents = async () => {
-    const schedules = await StoneApi.Faculty.getConsultationSchedule(this.props.AuthContext.user.id)
+    const consultationSchedules = await StoneApi.Faculty.getConsultationSchedule(this.props.AuthContext.user.id)
+    const defenseSchedules = await StoneApi.Faculty.getDefenseSchedule(this.props.AuthContext.user.id)
 
-    const events = schedules.map(sched=>{ 
+    const events = []
+    
+    consultationSchedules.forEach(sched=>{ 
       let start = new Date(moment(sched.dateTime))
-      let end = new Date(moment(sched.dateTime).add(1, 'h'))
+      let end = new Date(moment(sched.dateTime).add(1, 'hour'))
 
-      return {
+      events.push({
         title: "Consultation",
         start, end, ConsultationScheduleId: sched.id
-      } 
+      })
     })
 
-    console.log({events})
+    defenseSchedules.asPanelist.forEach(sched => {
+      let start = new Date(moment(sched.dateTime))
+      let end = new Date(moment(sched.dateTime).add(1, 'hour'))
+
+      events.push({
+        title: "Panel Defense",
+        start, end, ConsultationScheduleId: sched.id
+      } )
+    })
+
+    defenseSchedules.asCoordinator.forEach(sched => {
+      let start = new Date(moment(sched.dateTime))
+      let end = new Date(moment(sched.dateTime).add(1, 'hour'))
+
+      events.push({
+        title: "Supervise Defense",
+        start, end, ConsultationScheduleId: sched.id
+      } )
+    })
+    
     this.setState({ events })
   }
 
