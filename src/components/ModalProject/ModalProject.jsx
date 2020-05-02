@@ -4,7 +4,7 @@ import { compose } from 'redux';
 
 import { withAuthContext } from 'context/Auth/AuthContext.jsx';
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
 
 import { StoneApi } from 'lib/StoneApi.js';
 
@@ -38,7 +38,7 @@ class ModalProject extends React.Component {
     if(this.props.ResearchProjectId) {
       const existingProject = await StoneApi.Project.fetchProject(this.props.ResearchProjectId)
       const { title, abstract } = existingProject
-      const FacultyId = existingProject.ProjectAdvisers[0].id
+      const FacultyId = existingProject.ProjectAdvisers[0] ? existingProject.ProjectAdvisers[0].id : ""
 
       this.setState({ title, abstract, FacultyId })
     }
@@ -65,6 +65,13 @@ class ModalProject extends React.Component {
     const ResearchProject = await StoneApi.Project.createProject([StudentId], title, abstract)
     const ResearchProject_id = ResearchProject.id
     await StoneApi.Faculty.setAdviser(FacultyId, ResearchProject_id)
+    this.props.toggle()
+  }
+
+  updateProject = async () => {
+    const { title, abstract, FacultyId } = this.state
+    await StoneApi.Project.updateProject(this.props.ResearchProjectId, title, abstract)
+    await StoneApi.Faculty.setAdviser(FacultyId, this.props.ResearchProjectId)
     this.props.toggle()
   }
 
@@ -98,6 +105,7 @@ class ModalProject extends React.Component {
             <FormGroup>
               <Label for="FacultyId">Adviser</Label>
               <Input type="select" name="FacultyId" id="FacultyId" value={this.state.FacultyId} onChange={this.handleInput}>
+                <option value="">None</option>
                 {this.adviserOptions()}
               </Input>
             </FormGroup>
@@ -109,7 +117,17 @@ class ModalProject extends React.Component {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.createProject}>Save Project</Button>
+          { !this.props.ResearchProjectId &&
+            <Button color="primary" onClick={this.createProject}>Save</Button>
+          }
+
+          { this.props.ResearchProjectId &&
+            <Button color="danger" onClick={this.deleteProject}>Delete</Button>
+          }
+
+          { this.props.ResearchProjectId &&
+            <Button color="primary" onClick={this.updateProject}>Update</Button>
+          }
         </ModalFooter>
       </Modal>
     );

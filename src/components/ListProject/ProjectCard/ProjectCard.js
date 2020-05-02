@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col, Button, Badge } from 'reactstrap';
 
 import './ProjectCard.scss';
 
@@ -71,6 +71,8 @@ function ProjectCard(props) {
           <Col>
             <div className="ProjectCard--title" onClick={toggleProjectModal}>
               {props.project.title}
+              <Badge color="secondary" className="ProjectCard--status">{props.project.status}</Badge>
+              <Button size="sm" color="secondary" className="ProjectCard--edit" onClick={toggleProjectModal}>Edit</Button>
             </div>
 
             <div className="ProjectCard--proponents">
@@ -83,7 +85,9 @@ function ProjectCard(props) {
             </div>
 
             <div className="ProjectCard--adviser">
-              <p>Adviser: {props.project.ProjectAdvisers[0].fName} {props.project.ProjectAdvisers[0].lName}</p>
+              {props.project.ProjectAdvisers[0] &&
+                <p>Adviser: {props.project.ProjectAdvisers[0].fName} {props.project.ProjectAdvisers[0].lName}</p>
+              }
             </div>
 
             <div className="ProjectCard--panelists">
@@ -92,15 +96,18 @@ function ProjectCard(props) {
 
             <div className="float-left" >
               {props.userType === "faculty" && 
-                <Button size="sm" onClick={togglePanelistModal}>Panelists</Button>
+                <Button size="sm" color="primary" onClick={togglePanelistModal}>Set Panelists</Button>
               }
               {' '}
-              <Button size="sm" onClick={toggleProponentModal}>Proponents</Button>
+              <Button size="sm" color="primary" onClick={toggleProponentModal}>Set Proponents</Button>
             </div>
 
-            <div className="float-right" >
-              <Button size="sm" onClick={toggleDefenseModal}>Schedule Defense</Button>
-            </div>
+            {props.userType === "faculty" && 
+              <div className="float-right" >
+                <Button size="sm" color="primary" onClick={toggleDefenseModal}>Schedule Defense</Button>
+              </div>
+            }
+            
           </Col>
         </Row>
       </div>

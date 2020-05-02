@@ -11,7 +11,7 @@ import { StoneApi } from 'lib/StoneApi.js';
 import ProjectCard from '../ProjectCard/ProjectCard.js';
 
 function StudentProject(props) {
-  let [ project, setProject ] = useState(null)
+  let [ projects, setProjects ] = useState(null)
   
   useEffect(() => {
     if(props.AuthContext.user && props.AuthContext.user.id){
@@ -24,23 +24,27 @@ function StudentProject(props) {
 
     const projects = await StoneApi.Student.getProject(studentId)
     
-    let project = projects.find(proj=>proj.status==="IP")
+    // let project = projects.find(proj=>proj.status==="IP")
 
-    if(project) {
-      const projectId = project.id;
-      const fetchedProject = await StoneApi.Project.fetchProject(projectId)
+    if(projects) {
+      const taskFetchProjects = projects.map(async project => {
+        const projectId = project.id;
+        return await StoneApi.Project.fetchProject(projectId)
+      })
+      const fetchedProjects = await Promise.all(taskFetchProjects)
       
-      setProject(fetchedProject)
+      setProjects(fetchedProjects)
     }
   }
 
-  if(!project) return null
+  if(!projects || !projects.length) return null
   
-  return (
-    <Col md={4}>
-      <ProjectCard project={project} />
-    </Col>
-  )
+  return projects.map((project, idx) => (
+      <Col key={idx} md={4}>
+        <ProjectCard project={project} />
+      </Col>
+  ))
+  
 }
 
 const enhance = compose(withAuthContext);

@@ -59,7 +59,7 @@ function Appointment(props) {
               </CardText>
 
               <div>
-                <Button size="sm" className="float-right" onClick={()=>onOpenAppt(apt.id)}>
+                <Button size="sm" className="float-right" color="primary" onClick={()=>onOpenAppt(apt.id)}>
                   { status==="Pending" &&
                     "Respond"
                   }
